@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HONG KONG // 100% — Sleeping Dogs: Definitive Edition</title>
+<meta name="description" content="Companion-трекер для 100% прохождения Sleeping Dogs: Definitive Edition. 59 достижений, карты районов, прогресс сохраняется локально.">
+<meta property="og:title" content="HONG KONG // 100% — Sleeping Dogs">
+<meta property="og:description" content="Трекер достижений и интерактивные карты Гонконга.">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%2308080a'/><text x='50' y='68' font-family='sans-serif' font-size='44' font-weight='700' fill='%23c9a227' text-anchor='middle'>HK</text></svg>">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-void: #050505; --bg-carbon: #0c0c0e; --bg-slate: #121317;
+  --bg-elevated: #1a1c22; --bg-hover: #22252d;
+  --border-subtle: #2a2d36; --border-strong: #4a4e5e;
+  --accent-gold: #c9a227; --accent-gold-bright: #e8c547; --accent-gold-dim: #8a6f1a;
+  --accent-red: #c0392b; --accent-red-glow: #e74c3c;
+  --accent-teal: #2a9d8f; --accent-teal-dim: #1e6f66;
+  --accent-blue: #2980b9;
+  --text-primary: #f0ede8; --text-secondary: #a8a5a0; --text-muted: #6b6862;
+  --success: #2a9d8f; --warning: #e9a23b; --danger: #c0392b;
+  --radius: 8px; --radius-lg: 12px;
+  --shadow: 0 8px 30px rgba(0,0,0,0.5);
+  --glow-red: 0 0 15px rgba(192, 57, 43, 0.4);
+}
+[data-theme="light"] {
+  --bg-void: #f0f0f0; --bg-carbon: #ffffff; --bg-slate: #f4f4f4;
+  --bg-elevated: #e8e8e8; --bg-hover: #dcdcdc;
+  --border-subtle: #d1d1d1; --border-strong: #a0a0a0;
+  --accent-gold: #a8881f; --accent-gold-bright: #c9a227;
+  --text-primary: #111; --text-secondary: #333; --text-muted: #666;
+  --shadow: 0 4px 20px rgba(0,0,0,0.1);
+  --glow-red: 0 0 10px rgba(192, 57, 43, 0.2);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--bg-void); color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px; line-height: 1.5; min-height: 100vh;
+  -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s;
+  display: flex; flex-direction: column;
+}
+body {
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(192, 57, 43, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(201, 162, 39, 0.05), transparent 25%);
+  background-attachment: fixed;
+}
+.font-display { font-family: 'Oswald', Impact, sans-serif; letter-spacing: 0.02em; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* HEADER */
+.app-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--border-subtle); background: rgba(12,12,14,0.85); backdrop-filter: blur(12px); }
+[data-theme="light"] .app-header { background: rgba(255,255,255,0.85); }
+.header-inner { max-width: 1280px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.logo-mark { display: flex; align-items: center; gap: 12px; }
+.logo-badge { width: 40px; height: 40px; border: 2px solid var(--accent-red); border-radius: 8px; display: grid; place-items: center; font-family: 'Oswald', sans-serif; font-weight: 600; color: var(--accent-red-glow); font-size: 18px; flex-shrink: 0; box-shadow: var(--glow-red); }
+.logo-text { display: flex; flex-direction: column; gap: 1px; }
+.logo-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.28em; color: var(--accent-gold); font-weight: 500; }
+.logo-title { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 500; color: var(--text-primary); text-transform: uppercase; }
+.status-pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; background: var(--bg-slate); border: 1px solid var(--border-subtle); border-radius: 999px; font-size: 12px; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-teal); box-shadow: 0 0 8px var(--accent-teal); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.theme-toggle { background: var(--bg-slate); border: 1px solid var(--border-subtle); color: var(--text-secondary); width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: grid; place-items: center; font-size: 16px; transition: all 150ms; }
+.theme-toggle:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+/* NAV */
+.app-nav { border-bottom: 1px solid var(--border-subtle); background: var(--bg-carbon); position: sticky; top: 68px; z-index: 30; overflow-x: auto; scrollbar-width: none; }
+.app-nav::-webkit-scrollbar { display: none; }
+.nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 12px; display: flex; gap: 4px; }
+.nav-link { display: inline-flex; align-items: center; padding: 14px 16px; color: var(--text-secondary); font-size: 14px; font-weight: 500; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 150ms, border-color 150ms; cursor: pointer; background: none; border-top: none; border-left: none; border-right: none; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+.nav-link:hover { color: var(--text-primary); }
+.nav-link.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); }
+
+/* MAIN */
+.app-main { max-width: 1280px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 200ms ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* BANNER */
+.info-banner { background: linear-gradient(90deg, rgba(192,57,43,0.1), transparent); border-left: 4px solid var(--accent-red); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; font-size: 13px; color: var(--text-secondary); display: flex; gap: 12px; align-items: flex-start; }
+.info-banner .icon { color: var(--accent-red-glow); flex-shrink: 0; font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 18px; }
+.info-banner strong { color: var(--text-primary); }
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+.grid-cmd { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 1024px) { .grid-cmd { grid-template-columns: 1fr 380px; } }
+
+/* CARDS */
+.card { background: var(--bg-slate); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 20px; transition: all 200ms; position: relative; overflow: hidden; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--accent-gold), transparent); opacity: 0; transition: opacity 200ms; }
+.card:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
+.card:hover::before { opacity: 1; }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
+.card-title { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 500; color: var(--text-primary); text-transform: uppercase; }
+.card-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase; }
+
+/* PROGRESS */
+.progress-section { padding: 24px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; text-transform: uppercase; font-family: 'Oswald', sans-serif; letter-spacing: 0.05em; }
+.progress-bar-bg { height: 8px; background: var(--bg-elevated); border-radius: 4px; overflow: hidden; margin-bottom: 20px; }
+.progress-bar-fill { height: 100%; border-radius: 4px; transition: width 800ms cubic-bezier(0.22,1,0.36,1); }
+.progress-bar-fill.gold { background: var(--accent-gold); box-shadow: 0 0 10px rgba(201, 162, 39, 0.3); }
+.progress-bar-fill.teal { background: var(--accent-teal); box-shadow: 0 0 10px rgba(42, 157, 143, 0.3); }
+.progress-percent { font-family: 'Oswald', sans-serif; font-size: 56px; font-weight: 600; color: var(--text-primary); line-height: 1; letter-spacing: -0.02em; }
+.progress-percent span { color: var(--accent-gold); font-size: 32px; }
+
+/* STATS */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-block { background: var(--bg-slate); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 16px; text-align: center; position: relative; overflow: hidden; }
+.stat-value { font-family: 'Oswald', sans-serif; font-size: 32px; font-weight: 600; color: var(--text-primary); line-height: 1; }
+.stat-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
+
+/* ACHIEVEMENTS */
+.toolbar { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+@media (min-width: 768px) { .toolbar { flex-direction: row; align-items: center; } }
+.search-box { flex: 1; position: relative; }
+.search-box input { width: 100%; background: var(--bg-slate); border: 1px solid var(--border-subtle); color: var(--text-primary); padding: 12px 14px 12px 40px; border-radius: var(--radius); font-size: 14px; font-family: inherit; outline: none; transition: border-color 150ms; }
+.search-box input:focus { border-color: var(--accent-gold); }
+.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; pointer-events: none; }
+.select-control { background: var(--bg-slate); border: 1px solid var(--border-subtle); color: var(--text-primary); padding: 12px 14px; border-radius: var(--radius); font-size: 13px; font-family: inherit; cursor: pointer; outline: none; }
+.select-control:focus { border-color: var(--accent-gold); }
+.filter-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.chip { background: var(--bg-slate); border: 1px solid var(--border-subtle); color: var(--text-secondary); padding: 8px 14px; border-radius: 4px; font-size: 12px; cursor: pointer; transition: all 150ms; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+.chip:hover { border-color: var(--border-strong); color: var(--text-primary); }
+.chip.active { background: rgba(201, 162, 39, 0.15); border-color: var(--accent-gold); color: var(--accent-gold); }
+.achievement-list { display: flex; flex-direction: column; gap: 10px; }
+.achievement-card { background: var(--bg-slate); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 16px 20px; cursor: pointer; transition: all 150ms; display: flex; gap: 16px; align-items: flex-start; position: relative; }
+.achievement-card:hover { border-color: var(--accent-gold-dim); background: var(--bg-hover); transform: translateX(4px); }
+.achievement-card.unlocked { border-left: 4px solid var(--accent-teal); background: linear-gradient(90deg, rgba(42,157,143,0.05), transparent 20%); }
+.ach-icon { width: 52px; height: 52px; border-radius: 6px; background: var(--bg-elevated); border: 1px solid var(--border-subtle); display: grid; place-items: center; flex-shrink: 0; font-size: 22px; color: var(--accent-gold); font-family: 'Oswald', sans-serif; font-weight: 600; }
+.achievement-card.unlocked .ach-icon { border-color: var(--accent-teal); color: var(--accent-teal); background: rgba(42, 157, 143, 0.1); }
+.ach-body { flex: 1; min-width: 0; }
+.ach-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.ach-title { font-weight: 600; font-size: 15px; color: var(--text-primary); }
+.ach-title-en { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+.ach-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px; }
+.ach-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 4px; background: var(--bg-elevated); color: var(--text-secondary); letter-spacing: 0.04em; border: 1px solid var(--border-subtle); text-transform: uppercase; }
+.tag.gold { color: var(--accent-gold); border-color: var(--accent-gold-dim); }
+.tag.teal { color: var(--accent-teal); border-color: var(--accent-teal-dim); }
+.tag.red { color: var(--accent-red-glow); border-color: var(--accent-red); }
+.ach-status { display: flex; gap: 6px; align-items: center; margin-left: auto; flex-shrink: 0; }
+.checkbox { width: 24px; height: 24px; border: 2px solid var(--border-strong); border-radius: 4px; cursor: pointer; display: grid; place-items: center; transition: all 150ms; background: transparent; flex-shrink: 0; }
+.checkbox:hover { border-color: var(--accent-gold); }
+.checkbox.checked { background: var(--accent-teal); border-color: var(--accent-teal); }
+.checkbox.checked::after { content: '✓'; color: white; font-size: 16px; font-weight: bold; line-height: 1; }
+
+/* MAPS SECTION */
+.map-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; background: var(--bg-slate); padding: 16px; border-radius: var(--radius); border: 1px solid var(--border-subtle); }
+.legend-item { display: flex; align-items: center; gap: 8px; font-family: 'Oswald', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+.legend-box { width: 16px; height: 16px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.2); }
+.map-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 768px) { .map-grid { grid-template-columns: 1fr 1fr; } }
+.map-card { background: var(--bg-slate); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; transition: all 200ms; position: relative; }
+.map-card:hover { border-color: var(--accent-gold); transform: translateY(-4px); box-shadow: var(--shadow); }
+.map-card img { width: 100%; height: 300px; object-fit: cover; display: block; filter: brightness(0.8) contrast(1.1); transition: filter 200ms, transform 400ms; }
+.map-card:hover img { filter: brightness(1.1) contrast(1.1); transform: scale(1.02); }
+.map-card-title { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px 20px 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); font-family: 'Oswald', sans-serif; font-size: 24px; font-weight: 600; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; pointer-events: none; }
+.map-card-overlay { position: absolute; inset: 0; background: rgba(192, 57, 43, 0.2); opacity: 0; transition: opacity 200ms; display: grid; place-items: center; pointer-events: none; }
+.map-card:hover .map-card-overlay { opacity: 1; }
+.map-card-overlay span { background: var(--bg-carbon); color: var(--accent-gold); padding: 8px 16px; border-radius: 4px; font-family: 'Oswald', sans-serif; border: 1px solid var(--accent-gold); }
+
+/* LIGHTBOX */
+.lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); padding: 40px; align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; border: 2px solid var(--border-strong); box-shadow: 0 0 50px rgba(0,0,0,0.8); border-radius: 4px; }
+.lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; background: none; border: none; font-family: sans-serif; transition: color 0.2s; }
+.lightbox-close:hover { color: var(--accent-red-glow); }
+
+/* MODAL */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 150ms ease-out; }
+.modal-backdrop.open { display: flex; }
+.modal { background: var(--bg-carbon); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); max-width: 640px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow); }
+.modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; position: sticky; top: 0; background: var(--bg-carbon); z-index: 1; }
+.modal-close { background: var(--bg-slate); border: 1px solid var(--border-subtle); color: var(--text-secondary); width: 32px; height: 32px; border-radius: 4px; cursor: pointer; font-size: 18px; display: grid; place-items: center; flex-shrink: 0; transition: all 150ms; }
+.modal-close:hover { background: var(--bg-hover); color: var(--text-primary); }
+.modal-body { padding: 24px; }
+.section-label { font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 0.1em; color: var(--accent-gold); text-transform: uppercase; margin: 24px 0 10px; font-weight: 500; }
+.section-label:first-child { margin-top: 0; }
+.step-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.step-item { display: flex; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--text-primary); }
+.step-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 4px; background: var(--bg-elevated); border: 1px solid var(--accent-gold-dim); color: var(--accent-gold); display: grid; place-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; margin-top: 1px; }
+.warning-box { background: rgba(192, 57, 43, 0.1); border-left: 3px solid var(--accent-red); padding: 12px 16px; font-size: 13px; color: #ffb3a8; margin-top: 8px; }
+textarea { width: 100%; min-height: 80px; background: var(--bg-slate); border: 1px solid var(--border-subtle); color: var(--text-primary); border-radius: var(--radius); padding: 12px; font-family: inherit; font-size: 13px; line-height: 1.5; resize: vertical; outline: none; transition: border-color 150ms; }
+textarea:focus { border-color: var(--accent-gold); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: var(--radius); font-size: 14px; font-weight: 500; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: all 150ms; border: 1px solid var(--border-subtle); background: var(--bg-slate); color: var(--text-primary); text-decoration: none; }
+.btn:hover { background: var(--bg-hover); border-color: var(--border-strong); }
+.btn-primary { background: var(--accent-gold); color: var(--bg-void); border-color: var(--accent-gold); font-weight: 600; }
+.btn-primary:hover { background: var(--accent-gold-bright); border-color: var(--accent-gold-bright); }
+.btn-danger { color: #ff9585; border-color: var(--accent-red); }
+.btn-danger:hover { background: rgba(192,57,43,0.15); }
+.btn-block { width: 100%; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+
+/* ROADMAP */
+.roadmap { position: relative; padding-left: 32px; }
+.roadmap::before { content: ''; position: absolute; left: 11px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(to bottom, var(--accent-red), var(--border-subtle)); }
+.roadmap-step { position: relative; margin-bottom: 24px; background: var(--bg-slate); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 20px; transition: all 200ms; }
+.roadmap-step::before { content: ''; position: absolute; left: -26px; top: 24px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-void); border: 2px solid var(--border-strong); transition: all 200ms; }
+.roadmap-step.current { border-color: var(--accent-red); background: linear-gradient(90deg, rgba(192,57,43,0.05), var(--bg-slate) 40%); }
+.roadmap-step.current::before { background: var(--accent-red); border-color: var(--accent-red); box-shadow: var(--glow-red); }
+.roadmap-step.completed { opacity: 0.6; }
+.roadmap-step.completed::before { background: var(--accent-teal); border-color: var(--accent-teal); }
+.roadmap-step-title { font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 500; margin-bottom: 6px; color: var(--text-primary); text-transform: uppercase; }
+.roadmap-step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
+
+/* SETTINGS */
+.setting-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border-subtle); flex-wrap: wrap; }
+.setting-row:last-child { border-bottom: none; }
+.setting-info { flex: 1; min-width: 200px; }
+.setting-title { font-weight: 500; font-size: 15px; margin-bottom: 2px; }
+.setting-desc { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+.switch { position: relative; display: inline-block; width: 48px; height: 26px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch .slider { position: absolute; cursor: pointer; inset: 0; background: var(--bg-elevated); border: 1px solid var(--border-strong); transition: 200ms; border-radius: 26px; }
+.switch .slider:before { position: absolute; content: ''; height: 18px; width: 18px; left: 3px; bottom: 3px; background: var(--text-secondary); transition: 200ms; border-radius: 50%; }
+.switch input:checked + .slider { background: var(--accent-gold); border-color: var(--accent-gold); }
+.switch input:checked + .slider:before { transform: translateX(22px); background: var(--bg-void); }
+
+/* TOAST */
+.toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 200; display: flex; flex-direction: column; gap: 8px; }
+.toast { background: var(--bg-elevated); border: 1px solid var(--accent-gold); color: var(--text-primary); padding: 14px 20px; border-radius: var(--radius); font-size: 14px; box-shadow: var(--shadow); animation: slideIn 200ms ease-out; max-width: 320px; border-left: 4px solid var(--accent-gold); }
+@keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+/* FOOTER */
+.app-footer { background: var(--bg-carbon); border-top: 1px solid var(--border-subtle); padding: 40px 20px 20px; margin-top: auto; }
+.footer-inner { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
+.footer-brand h3 { font-family: 'Oswald', sans-serif; font-size: 20px; color: var(--text-primary); margin-bottom: 8px; text-transform: uppercase; }
+.footer-brand p { color: var(--text-muted); font-size: 13px; max-width: 400px; line-height: 1.6; }
+.footer-author { display: flex; flex-direction: column; gap: 12px; }
+.author-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--accent-gold); text-transform: uppercase; }
+.social-links { display: flex; gap: 12px; }
+.social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--bg-slate); border: 1px solid var(--border-subtle); border-radius: var(--radius); color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: all 150ms; }
+.social-btn:hover { background: var(--bg-hover); color: var(--text-primary); border-color: var(--border-strong); transform: translateY(-2px); }
+.social-btn svg { width: 18px; height: 18px; fill: currentColor; }
+.social-btn.tg:hover { color: #229ED9; border-color: #229ED9; }
+.social-btn.vk:hover { color: #0077FF; border-color: #0077FF; }
+.footer-bottom { border-top: 1px solid var(--border-subtle); padding-top: 20px; text-align: center; color: var(--text-muted); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+
+/* UTILITY */
+.mt-4 { margin-top: 16px; } .mt-6 { margin-top: 24px; } .mb-4 { margin-bottom: 16px; }
+.text-xs { font-size: 11px; } .text-sm { font-size: 13px; }
+.text-muted { color: var(--text-muted); } .text-secondary { color: var(--text-secondary); }
+.text-gold { color: var(--accent-gold); } .text-teal { color: var(--accent-teal); } .text-danger { color: var(--accent-red-glow); }
+.flex { display: flex; } .gap-2 { gap: 8px; } .items-center { align-items: center; }
+.justify-between { justify-content: space-between; } .flex-wrap { flex-wrap: wrap; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-void); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+@media (max-width: 640px) {
+  .app-main { padding: 16px 14px 60px; }
+  .header-inner { padding: 12px 14px; }
+  .logo-title { font-size: 16px; }
+  .stats-row { grid-template-columns: 1fr; }
+  .achievement-card { padding: 12px; gap: 12px; }
+  .ach-icon { width: 44px; height: 44px; font-size: 18px; }
+  .modal-header, .modal-body { padding: 16px; }
+  .roadmap { padding-left: 24px; }
+  .roadmap::before { left: 7px; }
+  .roadmap-step::before { left: -22px; }
+  .map-grid { grid-template-columns: 1fr; }
+  .map-card img { height: 250px; }
+  .lightbox { padding: 10px; }
+  .footer-top { flex-direction: column; text-align: center; align-items: center; }
+  .footer-brand p { text-align: center; }
+  .social-links { justify-content: center; flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <div class="logo-mark">
+      <div class="logo-badge">HK</div>
+      <div class="logo-text">
+        <div class="logo-eyebrow">SLEEPING DOGS // 100%</div>
+        <div class="logo-title">Definitive Edition Tracker</div>
+      </div>
+    </div>
+    <div class="flex gap-2 items-center">
+      <div class="status-pill"><span class="status-dot"></span><span>СИСТЕМА АКТИВНА</span></div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">🌙</button>
+    </div>
+  </div>
+</header>
+
+<nav class="app-nav">
+  <div class="nav-inner">
+    <button class="nav-link active" data-page="command">Штаб</button>
+    <button class="nav-link" data-page="achievements">Достижения</button>
+    <button class="nav-link" data-page="roadmap">Маршрут</button>
+    <button class="nav-link" data-page="maps">Карты</button>
+    <button class="nav-link" data-page="dlc">DLC</button>
+    <button class="nav-link" data-page="settings">Настройки</button>
+  </div>
+</nav>
+
+<main class="app-main">
+
+  <!-- COMMAND CENTER -->
+  <section class="page active" id="page-command">
+    <div class="info-banner">
+      <span class="icon">!</span>
+      <div>
+        <strong>ДОБРО ПОЖАЛОВАТЬ В ГОНКОНГ.</strong> Трекер для 100% прохождения. 59 достижений (50 в базе + 9 в DLC). Прогресс сохраняется локально в вашем браузере. Внимание: есть 1 пропускаемое достижение — <strong>Cursed Gold</strong>.
+      </div>
+    </div>
+    <div class="grid-cmd">
+      <div>
+        <div class="grid-2 mb-4">
+          <div class="card progress-section">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="card-title">Общий прогресс</h2>
+              <span class="font-mono text-xs text-gold" id="progress-count">0 / 59</span>
+            </div>
+            <div class="progress-percent" id="progress-percent">0<span>%</span></div>
+            <div class="mt-4">
+              <div class="progress-label"><span>Базовые достижения</span><span class="font-mono" id="base-count">0 / 50</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill gold" id="base-fill" style="width:0%"></div></div>
+              <div class="progress-label"><span>Контент DLC</span><span class="font-mono" id="dlc-count">0 / 9</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill teal" id="dlc-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h2 class="card-title">Следующая цель</h2><span class="card-subtitle">Рекомендация</span></div>
+            <div id="next-objective"><p class="text-sm text-secondary">Отметьте хотя бы одно достижение, чтобы получить рекомендацию.</p></div>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-block"><div class="stat-value" id="stat-total">59</div><div class="stat-label">Всего</div></div>
+          <div class="stat-block"><div class="stat-value" style="color: var(--accent-teal);" id="stat-unlocked">0</div><div class="stat-label">Выполнено</div></div>
+          <div class="stat-block"><div class="stat-value" style="color: var(--accent-red-glow);" id="stat-remaining">59</div><div class="stat-label">Осталось</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Последние действия</h2><span class="card-subtitle">Журнал</span></div>
+          <div id="activity-log" style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--text-secondary);"><p class="text-muted">Пока нет активности.</p></div>
+        </div>
+      </div>
+      <aside>
+        <div class="card mb-4">
+          <div class="card-header"><h2 class="card-title">DLC-прогресс</h2></div>
+          <div id="dlc-progress-list" style="display:flex;flex-direction:column;gap:16px;"></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Категории</h2></div>
+          <div id="category-stats" style="display:flex;flex-direction:column;gap:12px;"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section class="page" id="page-achievements">
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="search-input" placeholder="Поиск по названию или описанию...">
+      </div>
+      <select class="select-control" id="sort-select">
+        <option value="order">Рекомендованный порядок</option>
+        <option value="name">По названию</option>
+        <option value="difficulty">По сложности</option>
+        <option value="status">Сначала неполученные</option>
+      </select>
+      <button class="btn btn-sm" id="reset-filters" title="Сбросить фильтры">Сбросить</button>
+    </div>
+    <div class="filter-chips" id="filter-chips">
+      <button class="chip active" data-filter="status" data-value="all">Все</button>
+      <button class="chip" data-filter="status" data-value="locked">Только неполученные</button>
+      <button class="chip" data-filter="status" data-value="unlocked">Получено</button>
+      <button class="chip" data-filter="category" data-value="story">Сюжет</button>
+      <button class="chip" data-filter="category" data-value="collectible">Коллекции</button>
+      <button class="chip" data-filter="category" data-value="combat">Бой</button>
+      <button class="chip" data-filter="category" data-value="vehicle">Транспорт</button>
+      <button class="chip" data-filter="category" data-value="stat">Статистика</button>
+      <button class="chip" data-filter="dlc" data-value="base">Только база</button>
+      <button class="chip" data-filter="dlc" data-value="dlc">Только DLC</button>
+      <button class="chip" data-filter="missable" data-value="true">⚠ Пропускаемые</button>
+    </div>
+    <p class="text-xs text-muted mb-4 font-mono" id="results-count"></p>
+    <div class="achievement-list" id="achievement-list"></div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="page" id="page-roadmap">
+    <div class="info-banner">
+      <span class="icon">i</span>
+      <div><strong>ПЛАН ДЕЙСТВИЙ.</strong> Маршрут пересчитывается автоматически на основе оставшихся достижений.</div>
+    </div>
+    <div class="roadmap" id="roadmap-container"></div>
+  </section>
+
+  <!-- MAPS (NEW SECTION - БЕЗ IFRAME) -->
+  <section class="page" id="page-maps">
+    <div class="info-banner" style="border-left-color: var(--accent-gold);">
+      <span class="icon" style="color: var(--accent-gold);">i</span>
+      <div>
+        <strong>ТЕРРИТОРИЯ ГОНКОНГА.</strong> Используйте эти карты для поиска коллекционных предметов. Нажмите на карту, чтобы открыть её в полном размере.
+      </div>
+    </div>
+
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-box" style="background:#2980b9;"></div> 🟦 Синий — Сейфы</div>
+      <div class="legend-item"><div class="legend-box" style="background:#c0392b;"></div> 🟥 Красный — Алтари</div>
+      <div class="legend-item"><div class="legend-box" style="background:#f1c40f;"></div> 🟨 Желтый — Камеры</div>
+      <div class="legend-item"><div class="legend-box" style="background:#2ecc71;"></div> 🟩 Зеленый — Статуэтки</div>
+    </div>
+
+    <div class="map-grid">
+      <!-- Central -->
+      <div class="map-card" onclick="openLightbox('assets/maps/central.jpg', 'Central')">
+        <img src="assets/maps/central.jpg" alt="Central Map" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\'padding:40px;text-align:center;color:var(--text-muted);\'>Не удалось загрузить карту Central.<br>Проверьте, что файл <b>assets/maps/central.jpg</b> существует.</div>'">
+        <div class="map-card-overlay"><span>Открыть карту</span></div>
+        <div class="map-card-title">Central</div>
+      </div>
+      <!-- Aberdeen -->
+      <div class="map-card" onclick="openLightbox('assets/maps/aberdeen.jpg', 'Aberdeen')">
+        <img src="assets/maps/aberdeen.jpg" alt="Aberdeen Map" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\'padding:40px;text-align:center;color:var(--text-muted);\'>Не удалось загрузить карту Aberdeen.<br>Проверьте, что файл <b>assets/maps/aberdeen.jpg</b> существует.</div>'">
+        <div class="map-card-overlay"><span>Открыть карту</span></div>
+        <div class="map-card-title">Aberdeen</div>
+      </div>
+      <!-- North Point -->
+      <div class="map-card" onclick="openLightbox('assets/maps/north-point.jpg', 'North Point')">
+        <img src="assets/maps/north-point.jpg" alt="North Point Map" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\'padding:40px;text-align:center;color:var(--text-muted);\'>Не удалось загрузить карту North Point.<br>Проверьте, что файл <b>assets/maps/north-point.jpg</b> существует.</div>'">
+        <div class="map-card-overlay"><span>Открыть карту</span></div>
+        <div class="map-card-title">North Point</div>
+      </div>
+      <!-- Kennedy Town -->
+      <div class="map-card" onclick="openLightbox('assets/maps/kennedy-town.jpg', 'Kennedy Town')">
+        <img src="assets/maps/kennedy-town.jpg" alt="Kennedy Town Map" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\'padding:40px;text-align:center;color:var(--text-muted);\'>Не удалось загрузить карту Kennedy Town.<br>Проверьте, что файл <b>assets/maps/kennedy-town.jpg</b> существует.</div>'">
+        <div class="map-card-overlay"><span>Открыть карту</span></div>
+        <div class="map-card-title">Kennedy Town</div>
+      </div>
+    </div>
+
+    <div class="card mt-6">
+      <div class="card-header"><h2 class="card-title">Связанные достижения</h2></div>
+      <div id="map-related-achievements" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+  </section>
+
+  <!-- DLC -->
+  <section class="page" id="page-dlc">
+    <div class="grid-2" id="dlc-container"></div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="page" id="page-settings">
+    <div class="card mb-4">
+      <div class="card-header"><h2 class="card-title">Данные и прогресс</h2><span class="card-subtitle">СИСТЕМА</span></div>
+      <div class="setting-row">
+        <div class="setting-info"><div class="setting-title">Экспорт JSON</div><div class="setting-desc">Сохраните все достижения, заметки и прогресс в файл.</div></div>
+        <button class="btn" id="export-json">Скачать JSON</button>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info"><div class="setting-title">Импорт JSON</div><div class="setting-desc">Восстановите прогресс из резервной копии.</div></div>
+        <div class="flex gap-2">
+          <input type="file" id="import-file" accept=".json,application/json" style="display:none">
+          <button class="btn" id="import-trigger">Загрузить файл</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info"><div class="setting-title">Экспорт PNG</div><div class="setting-desc">Скачайте карточку прогресса для sharing.</div></div>
+        <button class="btn" id="export-png">Скачать PNG</button>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info"><div class="setting-title text-danger">Сброс прогресса</div><div class="setting-desc">Удаляет все отметки и заметки. Действие необратимо.</div></div>
+        <button class="btn btn-danger" id="reset-progress">Сбросить</button>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-header"><h2 class="card-title">Учет DLC</h2><span class="card-subtitle">Влияет на %</span></div>
+      <div class="setting-row">
+        <div class="setting-info"><div class="setting-title">Nightmare in North Point</div><div class="setting-desc">Учитывать достижения этого DLC в общем прогрессе.</div></div>
+        <label class="switch"><input type="checkbox" id="dlc-toggle-nightmare" checked><span class="slider"></span></label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info"><div class="setting-title">Year of the Snake</div><div class="setting-desc">Учитывать достижения этого DLC в общем прогрессе.</div></div>
+        <label class="switch"><input type="checkbox" id="dlc-toggle-snake" checked><span class="slider"></span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2 class="card-title">База данных</h2><span class="card-subtitle" id="db-status"></span></div>
+      <p class="text-sm text-secondary mb-4">Включено <strong id="db-count">59</strong> достижений. Данные сверены со Steam Community.</p>
+      <div class="info-box" style="background: rgba(201,162,39,0.08); border-color: var(--accent-gold-dim); color: var(--text-secondary);"><strong>Источники:</strong> Steam Community, Stratege.ru, LVL.su, TrueAchievements.</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close">&times;</button>
+  <img id="lightbox-img" src="" alt="Map">
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal" onclick="if(event.target===this) closeModal()">
+  <div class="modal" id="modal-content" role="dialog" aria-modal="true"></div>
+</div>
+<div class="toast-container" id="toast-container"></div>
+
+<!-- FOOTER -->
+<footer class="app-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>HONG KONG // 100%</h3>
+        <p>Неофициальный companion-трекер для Sleeping Dogs: Definitive Edition. Не связан с United Front Games, Square Enix или Valve. Все достижения принадлежат их правообладателям.</p>
+      </div>
+      <div class="footer-author">
+        <div class="author-title">Связь с автором</div>
+        <div class="social-links">
+          <a href="https://t.me/ashpetyan" target="_blank" rel="noopener" class="social-btn tg" title="Telegram">
+            <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            @ashpetyan
+          </a>
+          <a href="https://vk.com/say0ree" target="_blank" rel="noopener" class="social-btn vk" title="VK">
+            <svg viewBox="0 0 24 24"><path d="M13.162 18.994c.609 0 .858-.406.851-.915-.031-1.917.714-2.949 2.059-1.604 1.488 1.488 1.796 2.519 3.603 2.519h3.2c.808 0 1.126-.26 1.126-.668 0-.863-1.421-2.386-2.625-3.504-1.686-1.565-1.765-1.602-.313-3.486 1.801-2.339 4.157-5.336 2.073-5.336h-3.981c-.772 0-.828.435-1.103 1.083-.995 2.347-2.886 5.387-3.604 4.922-.751-.485-.407-2.406-.35-5.261.015-.754.011-1.271-1.141-1.539-.814-.18-1.777-.341-2.685-.341-2.538 0-4.643.963-4.643 3.258 0 .718.302 1.288.923 1.288.439 0 .759-.341.759-.719 0-1.093 1.155-1.804 2.828-1.804 1.112 0 1.611.305 1.642 1.499.041 1.556-.021 2.748-.677 3.687-.433.62-1.14 1.042-2.072 1.042-.611 0-1.023-.21-1.023-.21l-1.383 1.056c.495.343 1.428.606 2.48.606 2.891 0 4.607-2.347 4.607-5.137 0-.164-.005-.327-.014-.487 1.872 3.619 5.234 5.513 7.862 5.513z"/></svg>
+            @say0ree
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 HK COMPLETION SYSTEM. BUILT FOR THE STREETS.
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// ДАННЫЕ — 59 достижений (русские названия из Steam Community)
+// ============================================================
+const ACHIEVEMENTS = [
+  {id:'in-with-the-gang',nameRu:'С бандой заодно',nameEn:'In With the Gang',descRu:"Завершите задание «Погоня на ночном рынке».",category:'story',dlc:null,difficulty:'easy',time:'~10 мин',missable:false,steps:["Пройдите сюжетную миссию «Погоня на ночном рынке» (Night Market Chase).","Достижение откроется автоматически после завершения."],warnings:[],sources:[]},
+  {id:'thatll-show-em',nameRu:'Покажем им',nameEn:"That'll Show 'em",descRu:"Завершите задание «Расплата».",category:'story',dlc:null,difficulty:'easy',time:'~15 мин',missable:false,steps:["Пройдите сюжетную миссию «Расплата» (Payback).","Достижение откроется автоматически."],warnings:[],sources:[]},
+  {id:'a-big-betrayal',nameRu:'Большая измена',nameEn:'A Big Betrayal',descRu:"Завершите задание «Ограбление в доках».",category:'story',dlc:null,difficulty:'easy',time:'~20 мин',missable:false,steps:["Пройдите сюжетную миссию «Ограбление доков» (Dockyard Heist).","Достижение откроется автоматически."],warnings:[],sources:[]},
+  {id:'big-smiles-all-around',nameRu:'Кругом веселье',nameEn:'Big Smiles All Around',descRu:"Завершите задание «Весельчак Ли».",category:'story',dlc:null,difficulty:'easy',time:'~30 мин',missable:false,steps:["Пройдите финальную сюжетную миссию с Большой Улыбкой Ли.","Достижение откроется после победы."],warnings:[],sources:[]},
+  {id:'minor-face',nameRu:'Минимальный авторитет',nameEn:'Minor Face',descRu:'Достигните 2 уровня авторитета.',category:'stat',dlc:null,difficulty:'easy',time:'~30 мин',missable:false,steps:["Выполняйте побочные задания, помогайте NPC и покупайте одежду для повышения Face.","Достигните 2-го уровня."],warnings:[],sources:[]},
+  {id:'gaining-face',nameRu:'Набирая авторитет',nameEn:'Gaining Face',descRu:'Достигните 5 уровня авторитета.',category:'stat',dlc:null,difficulty:'medium',time:'2–3 ч',missable:false,steps:["Продолжайте выполнять активности и покупать предметы.","Достигните 5-го уровня Face."],warnings:[],sources:[]},
+  {id:'great-face',nameRu:'Репутация - прежде всего',nameEn:'Great Face',descRu:'Достигните 10 уровня авторитета.',category:'stat',dlc:null,difficulty:'hard',time:'5–10 ч',missable:false,steps:["Максимально повышайте Face: все побочные задания, покупка одежды, еда, помощь NPC.","Достигните 10-го уровня."],warnings:[],sources:[]},
+  {id:'fashion-statement',nameRu:'Модник',nameEn:'Fashion Statement',descRu:'Оденьте всю одежду в гардеробе или магазине.',category:'openworld',dlc:null,difficulty:'easy',time:'5–10 мин',missable:false,steps:["Посетите магазин одежды или гардероб.","Смените каждую категорию одежды."],warnings:[],sources:[]},
+  {id:'stuntman',nameRu:'Каскадер',nameEn:'Stuntman',descRu:'Выполните угон в прыжке.',category:'vehicle',dlc:null,difficulty:'easy',time:'5–10 мин',missable:false,steps:["Догоните автомобиль на высокой скорости.","Выполните action hijack.","Достижение откроется после успешного выполнения."],warnings:[],sources:[]},
+  {id:'a-slap-in-the-face',nameRu:'Удар по лицу',nameEn:'A Slap in the Face',descRu:'Совершите убийство кого-нибудь рыбой.',category:'combat',dlc:null,difficulty:'easy',time:'5–10 мин',missable:false,steps:["Найдите рыбу (рынок, ресторан).","Используйте её как оружие ближнего боя и добейте врага."],warnings:[],sources:[]},
+  {id:'take-a-bite-out-of-crime',nameRu:'Вор должен сидеть в тюрьме',nameEn:'Take A Bite Out Of Crime',descRu:'Завершите дело.',category:'side',dlc:null,difficulty:'easy',time:'20–30 мин',missable:false,steps:["Откройте доску дел в полицейском участке.","Выберите и завершите любое дело."],warnings:[],sources:[]},
+  {id:'man-around-town',nameRu:'Путешественник',nameEn:'Man Around Town',descRu:'Посетите Абердин, Центр, Кеннеди-Таун и Норд-Пойнт.',category:'openworld',dlc:null,difficulty:'easy',time:'15–30 мин',missable:false,steps:["Посетите каждый из четырёх районов Гонконга.","Достижение откроется после посещения последнего."],warnings:[],sources:[]},
+  {id:'foodie',nameRu:'Гурман',nameEn:'Foodie',descRu:'Съешьте или выпейте 10 разных блюд или напитков.',category:'openworld',dlc:null,difficulty:'easy',time:'20–30 мин',missable:false,steps:["Посещайте разные точки питания на карте.","Закажите и употребите 10 разных блюд/напитков."],warnings:[],sources:[]},
+  {id:'environmentalist',nameRu:'Находчивый',nameEn:'Environmentalist',descRu:'Выполните пять уникальных убийств с использованием предметов обстановки.',category:'combat',dlc:null,difficulty:'easy',time:'10–15 мин',missable:false,steps:["В бою подведите противника к интерактивному объекту.","Выполните добивание. Повторите 5 раз в разных местах."],warnings:[],sources:[]},
+  {id:'gadgetman',nameRu:'Любитель гаджетов',nameEn:'Gadgetman',descRu:'Взломайте замок, камеру слежения, установите жучок, прослушайте телефон и откройте сейф.',category:'openworld',dlc:null,difficulty:'easy',time:'20–30 мин',missable:false,steps:["Выполните каждое из пяти действий."],warnings:[],sources:[]},
+  {id:'safe-driver',nameRu:'Аккуратный водитель',nameEn:'Safe Driver',descRu:'Проехать более 2 минут на скорости выше 60 км/ч без повреждений машины.',category:'vehicle',dlc:null,difficulty:'easy',time:'5–10 мин',missable:false,steps:["Возьмите автомобиль (не мотоцикл).","Выездите на шоссе и поддерживайте скорость выше 60 км/ч в течение 2 минут.","Не врезайтесь и не повреждайте машину."],warnings:["Повреждение автомобиля сбрасывает таймер.","Мотоциклы не считаются."],sources:[]},
+  {id:'gun-nut',nameRu:'Привет, оружие',nameEn:'Gun Nut',descRu:'Используйте десять разных видов оружия, чтобы уничтожить противников.',category:'combat',dlc:null,difficulty:'medium',time:'30–60 мин',missable:false,steps:["Собирайте разные виды огнестрельного оружия.","Убейте хотя бы по одному врагу из каждого (всего 10 видов)."],warnings:[],sources:[]},
+  {id:'whatevers-handy',nameRu:'Что под руку попало',nameEn:"Whatever's Handy",descRu:'Используйте десять разных видов оружия ближнего боя, чтобы уничтожить противников.',category:'combat',dlc:null,difficulty:'medium',time:'30–60 мин',missable:false,steps:["Подбирайте разные предметы ближнего боя.","Убейте по одному врагу каждым (10 видов)."],warnings:[],sources:[]},
+  {id:'tourist',nameRu:'Турист',nameEn:'Tourist',descRu:'Выиграйте ставку на петушиных боях.',category:'openworld',dlc:null,difficulty:'easy',time:'5–10 мин',missable:false,steps:["Найдите точку петушиных боёв на карте.","Сделайте ставку и выиграйте."],warnings:[],sources:[]},
+  {id:'infowlable',nameRu:'Легкие деньги',nameEn:'Infowlable',descRu:'Выиграйте 50 000 долларов за один петушиный бой.',category:'openworld',dlc:null,difficulty:'medium',time:'15–30 мин',missable:false,steps:["Накопите достаточную сумму для крупной ставки.","Сделайте ставку и выиграйте 50 000 за один бой."],warnings:[],sources:[]},
+  {id:'kleptomaniac',nameRu:'Клептоман',nameEn:'Kleptomaniac',descRu:'Угоните 5 грузовиков с грузом.',category:'vehicle',dlc:null,difficulty:'easy',time:'15–30 мин',missable:false,steps:["Найдите грузовики с грузом на карте.","Угоните их и соберите груз.","Повторите 5 раз."],warnings:[],sources:[]},
+  {id:'sharpshooter',nameRu:'Снайпер',nameEn:'Sharpshooter',descRu:'Прострелите колеса полицейской машины при уходе от преследования.',category:'vehicle',dlc:null,difficulty:'medium',time:'10–20 мин',missable:false,steps:["Спровоцируйте полицейскую погоню.","Прицельтесь и выстрелите в шины полицейской машины."],warnings:[],sources:[]},
+  {id:'case-closed',nameRu:'Дело закрыто',nameEn:'Case Closed',descRu:'Закончите все дела.',category:'side',dlc:null,difficulty:'medium',time:'3–6 ч',missable:false,steps:["Завершите все дела на доске в полицейском участке."],warnings:[],sources:[]},
+  {id:'mr-nice-guy',nameRu:'Мистер Хороший Парень',nameEn:'Mr. Nice Guy',descRu:'Завершите все одолжения.',category:'side',dlc:null,difficulty:'medium',time:'2–4 ч',missable:false,steps:["Выполняйте побочные задания NPC (Favors).","Завершите все."],warnings:[],sources:[]},
+  {id:'event-driven',nameRu:'Любитель событий',nameEn:'Event Driven',descRu:'Завершите половину событий открытого мира.',category:'side',dlc:null,difficulty:'medium',time:'1–2 ч',missable:false,steps:["Участвуйте в событиях открытого мира.","Завершите 50% из них."],warnings:[],sources:[]},
+  {id:'event-planner',nameRu:'Организатор событий',nameEn:'Event Planner',descRu:'Завершите все события открытого мира.',category:'side',dlc:null,difficulty:'medium',time:'2–4 ч',missable:false,steps:["Завершите все события открытого мира."],warnings:["Некоторые события могут быть скрытыми."],sources:[]},
+  {id:'martial-law',nameRu:'Боевые искусства',nameEn:'Martial Law',descRu:'Одержите победу во всех 4 клубах боевых искусств.',category:'side',dlc:null,difficulty:'medium',time:'1–2 ч',missable:false,steps:["Найдите и пройдите все 4 клуба боевых искусств."],warnings:[],sources:[]},
+  {id:'wei-of-the-road',nameRu:'Повелитель дорог',nameEn:'Wei of the Road',descRu:'Завершите все уличные гонки.',category:'vehicle',dlc:null,difficulty:'medium',time:'2–4 ч',missable:false,steps:["Пройдите все уличные гонки, занимая первые места."],warnings:[],sources:[]},
+  {id:'ultimate-fighter',nameRu:'Абсолютный боец',nameEn:'Ultimate Fighter',descRu:'Откройте десять улучшений триады.',category:'stat',dlc:null,difficulty:'medium',time:'3–5 ч',missable:false,steps:["Зарабатывайте очки Триады.","Потратьте их на 10 улучшений."],warnings:[],sources:[]},
+  {id:'super-cop',nameRu:'Супер-коп',nameEn:'Super Cop',descRu:'Откройте десять улучшений полиции.',category:'stat',dlc:null,difficulty:'medium',time:'3–5 ч',missable:false,steps:["Зарабатывайте очки полиции.","Разблокируйте 10 улучшений."],warnings:[],sources:[]},
+  {id:'north-point-scavenger',nameRu:'Падальщик из Норд-Пойнта',nameEn:'North Point Scavenger',descRu:'Откройте все сейфы в Норд-Пойнте.',category:'collectible',dlc:null,difficulty:'medium',time:'1–2 ч',missable:false,steps:["Найдите и откройте все Lockboxes в Норт-Пойнте."],warnings:[],sources:[]},
+  {id:'central-scavenger',nameRu:'Падальщик из Центра',nameEn:'Central Scavenger',descRu:'Откройте все сейфы в Центре.',category:'collectible',dlc:null,difficulty:'medium',time:'1–2 ч',missable:false,steps:["Найдите и откройте все Lockboxes в Централ."],warnings:[],sources:[]},
+  {id:'west-end-scavenger',nameRu:'Падальщик с запада',nameEn:'West End Scavenger',descRu:'Откройте все сейфы в Кеннеди-Тауне и Абердине.',category:'collectible',dlc:null,difficulty:'medium',time:'2–3 ч',missable:false,steps:["Найдите и откройте все Lockboxes в Кеннеди-Таун и Абердине."],warnings:[],sources:[]},
+  {id:'bounty-hunter',nameRu:'Наемник',nameEn:'Bounty Hunter',descRu:'Выполните все задания Роланда.',category:'side',dlc:null,difficulty:'medium',time:'1–2 ч',missable:false,steps:["Выполните все задания, которые даёт Роланд."],warnings:[],sources:[]},
+  {id:'karaoke-superstar',nameRu:'Звезда караоке',nameEn:'Karaoke Superstar',descRu:'Наберите 90 или более процентов во всех песнях в караоке-барах Гонконга.',category:'side',dlc:null,difficulty:'medium',time:'30–60 мин',missable:false,steps:["Посетите все караоке-бары.","Спойте каждую песню, набирая не менее 90%."],warnings:[],sources:[]},
+  {id:'hong-kong-super-hacker',nameRu:'Гонконгский суперхакер',nameEn:'Hong Kong Super Hacker',descRu:'Взломайте все камеры наблюдения в игре.',category:'collectible',dlc:null,difficulty:'medium',time:'1–2 ч',missable:false,steps:["Найдите и взломайте все камеры безопасности."],warnings:[],sources:[]},
+  {id:'fashion-victim',nameRu:'Жертва моды',nameEn:'Fashion Victim',descRu:'Приобретите всю одежду.',category:'openworld',dlc:null,difficulty:'hard',time:'2–4 ч',missable:false,steps:["Посетите все магазины одежды.","Купите каждый предмет одежды."],warnings:["Требует много денег."],sources:[]},
+  {id:'spiritual-healing',nameRu:'Духовное исцеление',nameEn:'Spiritual Healing',descRu:'Посетите все алтари здоровья.',category:'collectible',dlc:null,difficulty:'medium',time:'2–3 ч',missable:false,steps:["Найдите все Health Shrines (50 шт.).","Помолитесь в каждом."],warnings:[],sources:[]},
+  {id:'auto-enthusiast',nameRu:'Автолюбитель',nameEn:'Auto Enthusiast',descRu:'Купите все машины.',category:'vehicle',dlc:null,difficulty:'hard',time:'3–5 ч',missable:false,steps:["Заработайте достаточно денег.","Купите все автомобили и мотоциклы."],warnings:["Очень дорого."],sources:[]},
+  {id:'slight-silver',nameRu:'Малое серебро',nameEn:'Slight Silver',descRu:'Получите 5 серебряных медалей.',category:'stat',dlc:null,difficulty:'easy',time:'1–2 ч',missable:false,steps:["Выполняйте испытания до серебряного уровня.","Получите 5 серебряных наград."],warnings:[],sources:[]},
+  {id:'substantial-silver',nameRu:'Среднее серебро',nameEn:'Substantial Silver',descRu:'Получите 15 серебряных медалей.',category:'stat',dlc:null,difficulty:'medium',time:'3–5 ч',missable:false,steps:["Доведите 15 испытаний до серебра."],warnings:[],sources:[]},
+  {id:'solid-silver',nameRu:'Большое серебро',nameEn:'Solid Silver',descRu:'Получите 30 серебряных медалей.',category:'stat',dlc:null,difficulty:'hard',time:'8–12 ч',missable:false,steps:["Доведите 30 испытаний до серебра."],warnings:[],sources:[]},
+  {id:'strike-gold',nameRu:'Первое золото',nameEn:'Strike Gold',descRu:'Получите 1 золотую медаль.',category:'stat',dlc:null,difficulty:'easy',time:'30 мин–1 ч',missable:false,steps:["Доведите одно испытание до золота."],warnings:[],sources:[]},
+  {id:'gold-rush',nameRu:'Золотая лихорадка',nameEn:'Gold Rush',descRu:'Получите 5 золотых медалей.',category:'stat',dlc:null,difficulty:'medium',time:'2–4 ч',missable:false,steps:["Доведите 5 испытаний до золота."],warnings:[],sources:[]},
+  {id:'golden-touch',nameRu:'Прикосновение Мидаса',nameEn:'Golden Touch',descRu:'Получите 15 золотых медалей.',category:'stat',dlc:null,difficulty:'hard',time:'6–10 ч',missable:false,steps:["Доведите 15 испытаний до золота."],warnings:[],sources:[]},
+  {id:'pure-gold',nameRu:'Чистое золото',nameEn:'Pure Gold',descRu:'Получите 30 золотых медалей.',category:'stat',dlc:null,difficulty:'hard',time:'15–25 ч',missable:false,steps:["Доведите 30 испытаний до золота."],warnings:["Одно из самых трудозатратных достижений."],sources:[]},
+  {id:'rookie',nameRu:'Новичок',nameEn:'Rookie',descRu:'Завершите 10% всех заданий, расследований, одолжений и гонок.',category:'stat',dlc:null,difficulty:'easy',time:'~1 ч',missable:false,steps:["Выполняйте любые активности. Достигните 10% прогресса."],warnings:[],sources:[]},
+  {id:'officer',nameRu:'Офицер',nameEn:'Officer',descRu:'Завершите 25% всех заданий, расследований, одолжений и гонок.',category:'stat',dlc:null,difficulty:'medium',time:'~3 ч',missable:false,steps:["Достигните 25% общего прогресса."],warnings:[],sources:[]},
+  {id:'detective',nameRu:'Детектив',nameEn:'Detective',descRu:'Завершите 50% всех заданий, расследований, одолжений и гонок.',category:'stat',dlc:null,difficulty:'medium',time:'~8 ч',missable:false,steps:["Достигните 50% общего прогресса."],warnings:[],sources:[]},
+  {id:'chief-inspector',nameRu:'Старший инспектор',nameEn:'Chief Inspector',descRu:'Завершите 100% всех заданий, расследований, одолжений и гонок.',category:'stat',dlc:null,difficulty:'hard',time:'20–30 ч',missable:false,steps:["Завершите все активности в игре."],warnings:["Требует полного прохождения."],sources:[]},
+  {id:'pet-cemetery',nameRu:'Кладбище питомцев',nameEn:'Pet Cemetery',descRu:'Отправьте Псиного глаза, Крысу Джонни и Конского хвоста назад в ад.',category:'dlc',dlc:'Nightmare in North Point',difficulty:'medium',time:'1–2 ч',missable:false,steps:["Пройдите сюжет DLC и победите всех трёх боссов."],warnings:[],sources:[]},
+  {id:'i-can-haz-banishment',nameRu:'Путевка в шредер',nameEn:'I Can Haz Banishment',descRu:'Изгоните Веселого кота.',category:'dlc',dlc:'Nightmare in North Point',difficulty:'medium',time:'30–60 мин',missable:false,steps:["Найдите и победите Смайли Кэта в DLC."],warnings:[],sources:[]},
+  {id:'ghosts-and-stuff',nameRu:'Призраки и все такое',nameEn:'Ghosts and Stuff',descRu:"Пройдите весь второстепенный контент в «Кошмар в Норд-Пойнт».",category:'dlc',dlc:'Nightmare in North Point',difficulty:'hard',time:'3–5 ч',missable:false,steps:["Выполните все побочные задания и активности в DLC."],warnings:[],sources:[]},
+  {id:'cursed-gold',nameRu:'Проклятое золото',nameEn:'Cursed Gold',descRu:'Получите 5 золотых медалей.',category:'dlc',dlc:'Nightmare in North Point',difficulty:'medium',time:'20–40 мин',missable:true,steps:["Выполняйте побочные задания и активности, дающие золотые награды.","Наберите 5 золотых наград ДО завершения сюжета DLC."],warnings:["DLC нельзя переиграть после завершения — если пропустить, достижение недоступно без новой игры.","Единственное пропускаемое достижение."],sources:[]},
+  {id:'hell-money',nameRu:'Проклятые деньги',nameEn:'Hell Money',descRu:'Найдите все святилища с деньгами.',category:'dlc',dlc:'Nightmare in North Point',difficulty:'medium',time:'1–2 ч',missable:false,steps:["Найдите все святилища денег в DLC."],warnings:[],sources:[]},
+  {id:'bomb-squad',nameRu:'Саперный отряд',nameEn:'Bomb Squad',descRu:"Пройдите «Конец Света».",category:'dlc',dlc:'Year of the Snake',difficulty:'easy',time:'15–30 мин',missable:false,steps:["Запустите DLC «Year of the Snake».","Пройдите сюжетное задание «End of the World»."],warnings:[],sources:[]},
+  {id:'cult-master',nameRu:'Мастер культа',nameEn:'Cult Master',descRu:'Победите культистов.',category:'dlc',dlc:'Year of the Snake',difficulty:'medium',time:'1–2 ч',missable:false,steps:["Пройдите сюжет DLC и победите лидера культистов."],warnings:[],sources:[]},
+  {id:'hong-kongs-finest',nameRu:'Герой Гонконга',nameEn:"Hong Kong's Finest",descRu:"Пройдите весь второстепенный контент в «Год Змеи».",category:'dlc',dlc:'Year of the Snake',difficulty:'hard',time:'3–5 ч',missable:false,steps:["Выполните все побочные задания в DLC."],warnings:[],sources:[]},
+  {id:'goodie-monster',nameRu:'Наблюдательный',nameEn:'Goodie Monster',descRu:'Найдите все улики.',category:'dlc',dlc:'Year of the Snake',difficulty:'medium',time:'1–2 ч',missable:false,steps:["Найдите все коллекционные улики в DLC."],warnings:[],sources:[]}
+];
+
+// ============================================================
+// СОСТОЯНИЕ
+// ============================================================
+const STORAGE_KEY = 'hk-completion-v3';
+const CURRENT_VERSION = 3;
+const DEFAULT_STATE = { version: CURRENT_VERSION, manual: {}, notes: {}, activityLog: [], dlcEnabled: { nightmare: true, snake: true }, theme: 'dark' };
+let state = loadState();
+
+function deepClone(o) { return typeof structuredClone === 'function' ? structuredClone(o) : JSON.parse(JSON.stringify(o)); }
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return deepClone(DEFAULT_STATE);
+    const p = JSON.parse(raw);
+    if (p.version === 2) { p.version = 3; p.dlcEnabled = p.dlcEnabled || { nightmare: true, snake: true }; p.theme = p.theme || 'dark'; }
+    if (p.version !== CURRENT_VERSION) return deepClone(DEFAULT_STATE);
+    return { ...deepClone(DEFAULT_STATE), ...p };
+  } catch { return deepClone(DEFAULT_STATE); }
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch (e) { showToast(e.name === 'QuotaExceededError' ? 'Хранилище переполнено' : 'Не удалось сохранить прогресс'); }
+}
+function showToast(msg) {
+  const c = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = 'toast'; t.textContent = msg; c.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 300ms'; setTimeout(() => t.remove(), 300); }, 2500);
+}
+function logActivity(text) {
+  state.activityLog.unshift({ text, at: new Date().toISOString() });
+  state.activityLog = state.activityLog.slice(0, 15);
+  saveState();
+}
+function isUnlocked(id) { return !!(state.manual[id]?.unlocked); }
+function isDlcEnabled(a) {
+  if (!a.dlc) return true;
+  if (a.dlc === 'Nightmare in North Point') return state.dlcEnabled.nightmare !== false;
+  if (a.dlc === 'Year of the Snake') return state.dlcEnabled.snake !== false;
+  return true;
+}
+function toggleUnlock(id) {
+  if (!state.manual[id]) state.manual[id] = {};
+  const was = state.manual[id].unlocked;
+  state.manual[id].unlocked = !was;
+  state.manual[id].unlockedAt = !was ? new Date().toISOString() : null;
+  const a = ACHIEVEMENTS.find(x => x.id === id);
+  logActivity(`${!was ? 'Получено' : 'Отменено'}: ${a?.nameRu || id}`);
+  saveState(); renderAll();
+}
+
+// ============================================================
+// РОУТИНГ
+// ============================================================
+document.querySelectorAll('.nav-link').forEach(btn => btn.addEventListener('click', () => switchPage(btn.dataset.page)));
+function switchPage(p) {
+  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  document.getElementById(`page-${p}`)?.classList.add('active');
+  document.querySelector(`.nav-link[data-page="${p}"]`)?.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (p === 'achievements') renderAchievements();
+  if (p === 'roadmap') renderRoadmap();
+  if (p === 'maps') renderMapRelated();
+  if (p === 'dlc') renderDLC();
+}
+
+// ============================================================
+// COMMAND CENTER
+// ============================================================
+function renderCommandCenter() {
+  const active = ACHIEVEMENTS.filter(isDlcEnabled);
+  const total = active.length;
+  const unlocked = active.filter(a => isUnlocked(a.id)).length;
+  const remaining = total - unlocked;
+  const percent = total ? Math.round((unlocked/total)*100) : 0;
+  const baseTotal = active.filter(a => !a.dlc).length;
+  const dlcTotal = active.filter(a => a.dlc).length;
+  const baseUnlocked = active.filter(a => !a.dlc && isUnlocked(a.id)).length;
+  const dlcUnlocked = active.filter(a => a.dlc && isUnlocked(a.id)).length;
+  document.getElementById('progress-percent').innerHTML = `${percent}<span>%</span>`;
+  document.getElementById('progress-count').textContent = `${unlocked} / ${total}`;
+  document.getElementById('base-count').textContent = `${baseUnlocked} / ${baseTotal}`;
+  document.getElementById('dlc-count').textContent = `${dlcUnlocked} / ${dlcTotal}`;
+  document.getElementById('base-fill').style.width = baseTotal ? `${(baseUnlocked/baseTotal)*100}%` : '0%';
+  document.getElementById('dlc-fill').style.width = dlcTotal ? `${(dlcUnlocked/dlcTotal)*100}%` : '0%';
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-unlocked').textContent = unlocked;
+  document.getElementById('stat-remaining').textContent = remaining;
+  renderNextObjective(active);
+  renderDLCProgress();
+  renderCategoryStats();
+  renderActivityLog();
+}
+function renderNextObjective(active) {
+  const c = document.getElementById('next-objective');
+  const rem = active.filter(a => !isUnlocked(a.id));
+  if (!rem.length) { c.innerHTML = '<div class="empty-state"><div class="empty-state-title">Все достижения получены</div><div class="empty-state-desc">Поздравляем с 100%!</div></div>'; return; }
+  const s = [...rem].sort((a,b) => { if (a.missable !== b.missable) return a.missable ? -1 : 1; const r = {easy:0,medium:1,hard:2}; return (r[a.difficulty]||0)-(r[b.difficulty]||0); });
+  const n = s[0];
+  c.innerHTML = `<div class="tag ${n.missable?'red':'gold'} mb-4" style="display:inline-block;">${n.missable?'⚠ Пропускаемое':'Следующий шаг'}</div>
+    <h3 style="font-family:'Oswald',sans-serif;font-size:18px;margin-bottom:6px;text-transform:uppercase;">${n.nameRu}</h3>
+    <p class="text-xs text-muted font-mono mb-4">${n.nameEn}</p>
+    <p class="text-sm text-secondary mb-4">${n.descRu}</p>
+    <button class="btn btn-primary btn-block" onclick="openAchievement('${n.id}')">Открыть инструкцию</button>
+    <p class="text-xs text-muted mt-4 font-mono">${n.dlc?'DLC: '+n.dlc:'БАЗОВАЯ ИГРА'} · ${n.time||'—'}</p>`;
+}
+function renderDLCProgress() {
+  const c = document.getElementById('dlc-progress-list');
+  c.innerHTML = ['Nightmare in North Point','Year of the Snake'].map(dlc => {
+    const list = ACHIEVEMENTS.filter(a => a.dlc === dlc);
+    const u = list.filter(a => isUnlocked(a.id)).length;
+    const t = list.length;
+    const pct = t ? Math.round((u/t)*100) : 0;
+    const en = dlc === 'Nightmare in North Point' ? state.dlcEnabled.nightmare !== false : state.dlcEnabled.snake !== false;
+    return `<div style="${en?'':'opacity:0.4;'}">
+      <div class="flex justify-between items-center mb-4" style="font-size:12px;"><span>${dlc}</span><span class="font-mono text-muted">${u}/${t}</span></div>
+      <div style="height:4px;background:var(--bg-elevated);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--accent-teal);transition:width 400ms;"></div></div>
+    </div>`;
+  }).join('');
+}
+function renderCategoryStats() {
+  const c = document.getElementById('category-stats');
+  const cats = [{k:'story',l:'Сюжет'},{k:'side',l:'Побочные'},{k:'collectible',l:'Коллекции'},{k:'combat',l:'Бой'},{k:'vehicle',l:'Транспорт'},{k:'stat',l:'Статистика'},{k:'openworld',l:'Открытый мир'},{k:'dlc',l:'DLC'}];
+  c.innerHTML = cats.map(({k,l}) => {
+    const list = ACHIEVEMENTS.filter(a => a.category === k && isDlcEnabled(a));
+    const u = list.filter(a => isUnlocked(a.id)).length;
+    const t = list.length;
+    if (!t) return '';
+    const pct = Math.round((u/t)*100);
+    return `<div><div class="flex justify-between items-center" style="font-size:12px;margin-bottom:4px;"><span>${l}</span><span class="font-mono text-muted">${u}/${t}</span></div>
+      <div style="height:4px;background:var(--bg-elevated);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--accent-gold);"></div></div></div>`;
+  }).join('');
+}
+function renderActivityLog() {
+  const c = document.getElementById('activity-log');
+  if (!state.activityLog.length) { c.innerHTML = '<p class="text-muted">Пока нет активности.</p>'; return; }
+  c.innerHTML = state.activityLog.slice(0,5).map(i => {
+    const d = new Date(i.at);
+    const t = d.toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+    return `<div class="flex justify-between items-center"><span>${i.text}</span><span class="font-mono text-xs text-muted">${t}</span></div>`;
+  }).join('');
+}
+
+// ============================================================
+// ACHIEVEMENTS
+// ============================================================
+let currentFilters = { status:'all', category:null, dlc:null, missable:false };
+let searchDebounce = null;
+function setupFilterEvents() {
+  document.getElementById('filter-chips').addEventListener('click', e => {
+    const chip = e.target.closest('.chip'); if (!chip) return;
+    const f = chip.dataset.filter, v = chip.dataset.value;
+    if (f === 'status') { currentFilters.status = v; document.querySelectorAll('[data-filter="status"]').forEach(c => c.classList.remove('active')); chip.classList.add('active'); }
+    else if (f === 'category') { if (currentFilters.category === v) { currentFilters.category = null; chip.classList.remove('active'); } else { currentFilters.category = v; document.querySelectorAll('[data-filter="category"]').forEach(c => c.classList.remove('active')); chip.classList.add('active'); } }
+    else if (f === 'dlc') { if (currentFilters.dlc === v) { currentFilters.dlc = null; chip.classList.remove('active'); } else { currentFilters.dlc = v; document.querySelectorAll('[data-filter="dlc"]').forEach(c => c.classList.remove('active')); chip.classList.add('active'); } }
+    else if (f === 'missable') { currentFilters.missable = !currentFilters.missable; chip.classList.toggle('active'); }
+    renderAchievements();
+  });
+  document.getElementById('search-input').addEventListener('input', () => { clearTimeout(searchDebounce); searchDebounce = setTimeout(renderAchievements, 150); });
+  document.getElementById('sort-select').addEventListener('change', renderAchievements);
+  document.getElementById('reset-filters').addEventListener('click', () => {
+    currentFilters = { status:'all', category:null, dlc:null, missable:false };
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    document.querySelector('[data-filter="status"][data-value="all"]').classList.add('active');
+    document.getElementById('search-input').value = '';
+    document.getElementById('sort-select').value = 'order';
+    renderAchievements();
+  });
+}
+function renderAchievements() {
+  const search = (document.getElementById('search-input')?.value||'').toLowerCase().trim();
+  const sortBy = document.getElementById('sort-select')?.value || 'order';
+  let list = ACHIEVEMENTS.filter(a => {
+    if (!isDlcEnabled(a) && currentFilters.dlc !== 'dlc') return false;
+    if (currentFilters.status === 'locked' && isUnlocked(a.id)) return false;
+    if (currentFilters.status === 'unlocked' && !isUnlocked(a.id)) return false;
+    if (currentFilters.category && a.category !== currentFilters.category) return false;
+    if (currentFilters.dlc === 'base' && a.dlc) return false;
+    if (currentFilters.dlc === 'dlc' && !a.dlc) return false;
+    if (currentFilters.missable && !a.missable) return false;
+    if (search) { const h = `${a.nameRu} ${a.nameEn} ${a.descRu} ${a.id}`.toLowerCase(); if (!h.includes(search)) return false; }
+    return true;
+  });
+  const r = {easy:0,medium:1,hard:2};
+  if (sortBy === 'name') list.sort((a,b) => a.nameRu.localeCompare(b.nameRu,'ru'));
+  else if (sortBy === 'difficulty') list.sort((a,b) => (r[a.difficulty]||0)-(r[b.difficulty]||0));
+  else if (sortBy === 'status') list.sort((a,b) => isUnlocked(a.id) - isUnlocked(b.id));
+  else list.sort((a,b) => a.id.localeCompare(b.id));
+  document.getElementById('results-count').textContent = `${list.length} из ${ACHIEVEMENTS.length} достижений`;
+  const c = document.getElementById('achievement-list');
+  if (!list.length) { c.innerHTML = '<div class="empty-state"><div class="empty-state-title">Ничего не найдено</div><div class="empty-state-desc">Попробуйте изменить фильтры.</div></div>'; return; }
+  const cat = {story:'Сюжет',side:'Побочное',collectible:'Коллекция',openworld:'Открытый мир',combat:'Бой',vehicle:'Транспорт',stat:'Статистика',dlc:'DLC'};
+  const dif = {easy:'Лёгкое',medium:'Среднее',hard:'Сложное'};
+  const frag = document.createDocumentFragment();
+  list.forEach(a => {
+    const u = isUnlocked(a.id);
+    const card = document.createElement('div');
+    card.className = `achievement-card ${u?'unlocked':''}`;
+    card.dataset.id = a.id;
+    card.innerHTML = `<div class="ach-icon">${a.nameRu.charAt(0).toUpperCase()}</div>
+      <div class="ach-body">
+        <div class="ach-title-row"><span class="ach-title">${a.nameRu}</span><span class="ach-title-en">${a.nameEn}</span></div>
+        <div class="ach-desc">${a.descRu}</div>
+        <div class="ach-meta">
+          <span class="tag">${cat[a.category]||a.category}</span>
+          ${a.dlc?`<span class="tag teal">${a.dlc}</span>`:'<span class="tag">База</span>'}
+          <span class="tag">${dif[a.difficulty]||a.difficulty}</span>
+          ${a.missable?'<span class="tag red">⚠ Пропуск</span>':''}
+          ${a.time?`<span class="tag">${a.time}</span>`:''}
+        </div>
+      </div>
+      <div class="ach-status" onclick="event.stopPropagation()"><div class="checkbox ${u?'checked':''}" role="checkbox" aria-checked="${u}" tabindex="0" aria-label="Отметить ${a.nameRu}"></div></div>`;
+    frag.appendChild(card);
+  });
+  c.replaceChildren(frag);
+}
+document.getElementById('achievement-list').addEventListener('click', e => {
+  const card = e.target.closest('.achievement-card'); if (!card) return;
+  if (e.target.closest('.checkbox')) toggleUnlock(card.dataset.id);
+  else openAchievement(card.dataset.id);
+});
+document.getElementById('achievement-list').addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'Enter') {
+    const cb = e.target.closest('.checkbox');
+    if (cb) { e.preventDefault(); const card = cb.closest('.achievement-card'); if (card) toggleUnlock(card.dataset.id); }
+  }
+});
+
+// ============================================================
+// ROADMAP
+// ============================================================
+function renderRoadmap() {
+  const rem = ACHIEVEMENTS.filter(a => !isUnlocked(a.id) && isDlcEnabled(a));
+  const steps = [{id:1,title:'Этап 1. Подготовка',desc:'Ознакомьтесь с базой. Отметьте уже полученные. Проверьте наличие DLC.',achievements:[]}];
+  const story = rem.filter(a => a.category === 'story' && !a.dlc);
+  if (story.length) steps.push({id:2,title:'Этап 2. Сюжетная линия',desc:'Пройдите сюжетные миссии.',achievements:story.map(a=>a.id)});
+  const col = rem.filter(a => a.category === 'collectible');
+  if (col.length) steps.push({id:3,title:'Этап 3. Коллекционирование',desc:'Health Shrines, Lockboxes, камеры, статуэтки.',achievements:col.map(a=>a.id)});
+  const side = rem.filter(a => a.category === 'side' && !a.dlc);
+  if (side.length) steps.push({id:4,title:'Этап 4. Побочные активности',desc:'Дела, поручения, события, гонки, клубы.',achievements:side.map(a=>a.id)});
+  const stat = rem.filter(a => ['stat','combat','vehicle','openworld'].includes(a.category) && !a.dlc);
+  if (stat.length) steps.push({id:5,title:'Этап 5. Статистика и испытания',desc:'Face, Triad, Cop, Melee до золота.',achievements:stat.map(a=>a.id)});
+  ['Nightmare in North Point','Year of the Snake'].forEach(dlc => {
+    const list = rem.filter(a => a.dlc === dlc);
+    if (!list.length) return;
+    const mis = list.filter(a => a.missable);
+    steps.push({id:steps.length+1,title:`Этап ${steps.length+1}. DLC: ${dlc}`,desc:mis.length?`⚠ ${mis.map(a=>a.nameRu).join(', ')} можно пропустить. Выполните до финала DLC.`:'Пройдите сюжет и побочные активности DLC.',achievements:list.map(a=>a.id)});
+  });
+  steps.push({id:steps.length+1,title:`Этап ${steps.length+1}. Финальная проверка`,desc:rem.length===0?'Все достижения получены. Поздравляем с 100%!':`Осталось ${rem.length} достижений.`,achievements:[]});
+  document.getElementById('roadmap-container').innerHTML = steps.map((s,i) => {
+    const cur = i===0 || (steps[i-1].achievements.every(a=>isUnlocked(a)) && s.achievements.length>0);
+    const done = s.achievements.length>0 && s.achievements.every(a=>isUnlocked(a));
+    return `<div class="roadmap-step ${done?'completed':''} ${cur&&!done?'current':''}">
+      <div class="roadmap-step-title">${s.title}</div>
+      <div class="roadmap-step-desc">${s.desc}</div>
+      ${s.achievements.length?`<div class="text-xs text-muted font-mono">${s.achievements.filter(a=>!isUnlocked(a)).length} из ${s.achievements.length} осталось</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// MAPS
+// ============================================================
+function renderMapRelated() {
+  const c = document.getElementById('map-related-achievements');
+  const ids = ['spiritual-healing','hong-kong-super-hacker','north-point-scavenger','central-scavenger','west-end-scavenger','hell-money','goodie-monster'];
+  c.innerHTML = ids.map(id => ACHIEVEMENTS.find(a => a.id === id)).filter(Boolean).map(a => {
+    const u = isUnlocked(a.id);
+    return `<div class="achievement-card ${u?'unlocked':''}" style="padding:12px 16px;" data-id="${a.id}" onclick="openAchievement('${a.id}')">
+      <div class="ach-body"><div class="ach-title-row"><span class="ach-title" style="font-size:14px;">${a.nameRu}</span>${a.missable?'<span class="tag red">⚠</span>':''}</div>
+      <div class="ach-desc" style="font-size:12px;margin-bottom:0;">${a.descRu}</div></div>
+      <div class="checkbox ${u?'checked':''}" onclick="event.stopPropagation();toggleUnlock('${a.id}')"></div>
+    </div>`;
+  }).join('');
+}
+
+// Lightbox logic
+function openLightbox(src, title) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ============================================================
+// DLC
+// ============================================================
+function renderDLC() {
+  const c = document.getElementById('dlc-container');
+  c.innerHTML = ['Nightmare in North Point','Year of the Snake'].map(dlc => {
+    const list = ACHIEVEMENTS.filter(a => a.dlc === dlc);
+    const u = list.filter(a => isUnlocked(a.id)).length;
+    return `<div class="card">
+      <div class="card-header"><h2 class="card-title">${dlc}</h2><span class="card-subtitle">${u}/${list.length}</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        ${list.map(a => {
+          const un = isUnlocked(a.id);
+          return `<div class="achievement-card ${un?'unlocked':''}" style="padding:12px 16px;" data-id="${a.id}">
+            <div class="ach-body"><div class="ach-title-row"><span class="ach-title" style="font-size:14px;">${a.nameRu}</span>${a.missable?'<span class="tag red">⚠ Пропуск</span>':''}</div>
+            <div class="ach-desc" style="font-size:12px;margin-bottom:0;">${a.descRu}</div></div>
+            <div class="checkbox ${un?'checked':''}" onclick="event.stopPropagation();toggleUnlock('${a.id}')"></div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openAchievement(id) {
+  const a = ACHIEVEMENTS.find(x => x.id === id); if (!a) return;
+  const u = isUnlocked(a.id);
+  const note = state.notes[a.id] || '';
+  const cat = {story:'Сюжет',side:'Побочное',collectible:'Коллекция',openworld:'Открытый мир',combat:'Бой',vehicle:'Транспорт',stat:'Статистика',dlc:'DLC'};
+  const dif = {easy:'Лёгкое',medium:'Среднее',hard:'Сложное'};
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-header">
+      <div style="flex:1;min-width:0;">
+        <div class="font-mono text-xs text-gold mb-4" style="letter-spacing:0.1em;">${a.id}</div>
+        <h2 style="font-family:'Oswald',sans-serif;font-size:22px;font-weight:500;margin-bottom:2px;text-transform:uppercase;">${a.nameRu}</h2>
+        <p class="text-sm text-muted font-mono">${a.nameEn}</p>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Закрыть">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="flex gap-2 flex-wrap mb-4">
+        <span class="tag">${cat[a.category]||a.category}</span>
+        ${a.dlc?`<span class="tag teal">${a.dlc}</span>`:'<span class="tag">Базовая игра</span>'}
+        <span class="tag">${dif[a.difficulty]||a.difficulty}</span>
+        ${a.time?`<span class="tag">${a.time}</span>`:''}
+        ${a.missable?'<span class="tag red">⚠ Пропускаемое</span>':''}
+      </div>
+      <div class="section-label">Условие</div>
+      <p class="text-sm">${a.descRu}</p>
+      <div class="section-label">Пошаговая инструкция</div>
+      <ol class="step-list">${a.steps.map((s,i) => `<li class="step-item"><span class="step-num">${i+1}</span><span>${s}</span></li>`).join('')}</ol>
+      ${a.warnings?.length?`<div class="section-label">Предупреждения</div>${a.warnings.map(w => `<div class="warning-box">${w}</div>`).join('')}`:''}
+      <div class="section-label">Заметка</div>
+      <textarea id="note-input" placeholder="Ваши заметки..." oninput="saveNote('${a.id}',this.value)">${note}</textarea>
+      <div class="mt-6" style="display:flex;gap:8px;">
+        <button class="btn ${u?'':'btn-primary'}" style="flex:1;" onclick="toggleUnlock('${a.id}');closeModal();">${u?'↺ Отменить отметку':'✓ Отметить полученным'}</button>
+      </div>
+    </div>`;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
+function saveNote(id, v) { if (v.trim()) state.notes[id] = v; else delete state.notes[id]; saveState(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeLightbox(); } });
+
+// ============================================================
+// EXPORT / IMPORT / PNG
+// ============================================================
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `hk-completion-${new Date().toISOString().slice(0,10)}.json`;
+  a.click(); URL.revokeObjectURL(url);
+  logActivity('Экспорт JSON'); showToast('JSON экспортирован');
+}
+async function importData(e) {
+  const f = e.target.files[0]; if (!f) return;
+  try {
+    const p = JSON.parse(await f.text());
+    if (typeof p !== 'object' || !p) throw new Error('Не объект');
+    if (p.version !== CURRENT_VERSION) throw new Error('Неизвестная версия');
+    state = { ...deepClone(DEFAULT_STATE), ...p };
+    saveState(); renderAll(); logActivity('Импорт JSON'); showToast('Данные загружены');
+  } catch (err) { showToast(`Ошибка: ${err.message}`); }
+  e.target.value = '';
+}
+function exportPNG() {
+  const cv = document.createElement('canvas'); cv.width = 600; cv.height = 400;
+  const x = cv.getContext('2d');
+  const act = ACHIEVEMENTS.filter(isDlcEnabled);
+  const t = act.length, u = act.filter(a => isUnlocked(a.id)).length;
+  const p = t ? Math.round((u/t)*100) : 0;
+  x.fillStyle = '#050505'; x.fillRect(0,0,600,400);
+  x.fillStyle = '#c9a227'; x.font = 'bold 28px Oswald, sans-serif'; x.fillText('HONG KONG // 100%', 40, 60);
+  x.fillStyle = '#f0ede8'; x.font = '16px Inter, sans-serif'; x.fillText('Sleeping Dogs: Definitive Edition', 40, 95);
+  x.fillStyle = '#e8c547'; x.font = 'bold 72px Oswald, sans-serif'; x.fillText(`${p}%`, 40, 200);
+  x.fillStyle = '#a8a5a0'; x.font = '14px JetBrains Mono, monospace'; x.fillText(`${u} / ${t} достижений`, 40, 235);
+  x.fillStyle = '#2a2d36'; x.fillRect(40, 270, 520, 8);
+  x.fillStyle = '#c9a227'; x.fillRect(40, 270, 520 * (u/t || 0), 8);
+  x.fillStyle = '#6b6862'; x.font = '11px JetBrains Mono, monospace'; x.fillText(new Date().toLocaleDateString('ru-RU'), 40, 320);
+  cv.toBlob(b => { const url = URL.createObjectURL(b); const a = document.createElement('a'); a.href = url; a.download = 'hk-progress.png'; a.click(); URL.revokeObjectURL(url); });
+  showToast('PNG экспортирован');
+}
+function resetProgress() {
+  if (!confirm('Сбросить весь прогресс? Необратимо.')) return;
+  state = deepClone(DEFAULT_STATE); saveState(); renderAll(); showToast('Прогресс сброшен');
+}
+
+// ============================================================
+// НАСТРОЙКИ
+// ============================================================
+function setupSettings() {
+  document.getElementById('export-json').addEventListener('click', exportData);
+  document.getElementById('import-trigger').addEventListener('click', () => document.getElementById('import-file').click());
+  document.getElementById('import-file').addEventListener('change', importData);
+  document.getElementById('export-png').addEventListener('click', exportPNG);
+  document.getElementById('reset-progress').addEventListener('click', resetProgress);
+  document.getElementById('dlc-toggle-nightmare').addEventListener('change', e => { state.dlcEnabled.nightmare = e.target.checked; saveState(); renderAll(); });
+  document.getElementById('dlc-toggle-snake').addEventListener('change', e => { state.dlcEnabled.snake = e.target.checked; saveState(); renderAll(); });
+}
+
+// ============================================================
+// ТЕМА
+// ============================================================
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  state.theme = t; saveState();
+  document.getElementById('theme-toggle').textContent = t === 'dark' ? '🌙' : '☀️';
+}
+document.getElementById('theme-toggle').addEventListener('click', () => applyTheme(state.theme === 'dark' ? 'light' : 'dark'));
+
+// ============================================================
+// ГЛОБАЛЬНЫЙ РЕНДЕР
+// ============================================================
+function renderAll() {
+  renderCommandCenter();
+  renderAchievements();
+  renderRoadmap();
+  renderDLC();
+  renderMapRelated();
+  document.getElementById('db-count').textContent = ACHIEVEMENTS.length;
+  document.getElementById('db-status').textContent = `${ACHIEVEMENTS.length} достижений · проверено`;
+  document.getElementById('dlc-toggle-nightmare').checked = state.dlcEnabled.nightmare !== false;
+  document.getElementById('dlc-toggle-snake').checked = state.dlcEnabled.snake !== false;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+applyTheme(state.theme || 'dark');
+setupFilterEvents();
+setupSettings();
+renderAll();
+
+// Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+
+// Self-check
+if (new URLSearchParams(location.search).has('debug')) {
+  console.assert(ACHIEVEMENTS.length === 59, 'должно быть 59');
+  console.assert(new Set(ACHIEVEMENTS.map(a => a.id)).size === 59, 'id уникальны');
+  console.assert(ACHIEVEMENTS.filter(a => a.dlc).length === 9, '9 DLC');
+  console.assert(ACHIEVEMENTS.filter(a => a.missable).length === 1, '1 пропускаемое');
+  console.log('Self-check OK');
+}
+</script>
+</body>
+</html>
